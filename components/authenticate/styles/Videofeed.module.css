@@ -1,0 +1,22 @@
+.mainmargin {
+    margin-left:10%;
+    margin-top:4%;
+  }
+  
+  .custom_label {
+    width: 14%;
+    display: inline-block;
+    vertical-align: top;
+  }
+  
+  .formgroup {
+    padding: 5%
+  }
+
+  #submitid {
+    padding-left: 15%;
+  }
+  #message {
+    padding-left: 15%;
+  }
+  
