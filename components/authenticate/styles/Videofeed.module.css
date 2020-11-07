@@ -1,20 +1,76 @@
 .mainmargin {
-    margin-left:10%;
-    margin-top:4%;
+    margin-left:7%;
+    margin-top:7%; 
+    background: url("https://images.unsplash.com/photo-1465146633011-14f8e0781093?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3450&q=80");
+    /* 'https://csshint.com/wp-content/uploads/2020/01/CSS-Animated-Backgrounds-2.gif' */
+    color:white;
+    animation: animation 100s linear infinite;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   }
-  
+  @keyframes animation {
+    100%{
+     background-position:0px -3000px;
+   }
+ }
   .custom_label {
-    width: 14%;
+    width: 20%;
+    font-size: 1.2rem;
+    color: cadetblue;
+    font-weight: bold;
     display: inline-block;
+    margin: 0 auto;
     vertical-align: top;
   }
   
   .formgroup {
-    padding: 5%
+    border: 10px blue;
+    margin-left: 0%;
+    padding-top: 5%;
+    padding-left: 0%;
+    padding-bottom: 3%;
   }
-
+  .button {
+    margin-left: 14%;
+    border-radius: 4px;
+    background-color:rgb(30, 117, 91);
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 1rem;
+    padding: 1rem;
+    width: 8rem;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+  }
+  
+  .button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  .button:hover span {
+    padding-right: 25px;
+  }
+  
+  .button:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
   #submitid {
     padding-left: 15%;
+    
   }
   #message {
     padding-left: 15%;

@@ -65,11 +65,12 @@ const videofeed = () => {
   }, [])
 
   return (
+    
     <body className={styles.mainmargin}>
     <div id='main-div'>
     <form encType="multipart/form-data" name='videoUpload' id='video-upload' >
       <div className='form-group'>
-        <label className={styles.custom_label}> Select file to upload: </label>
+        <label className={styles.custom_label}> Upload your Video  </label>
         <input accept="video/mp4" type="file" name="user-file" />
       </div>
 
@@ -79,7 +80,7 @@ const videofeed = () => {
       </div>
 
       <div id={styles.submitid}>
-        <input type="submit" id='submit' value="Upload File" onClick='onSubmit(event)' name="submit" />
+        <input className={styles.button} type="submit" id='submit' value="Upload File" onClick='onSubmit(event)' name="submit" />
       </div>
     </form>
   </div>
