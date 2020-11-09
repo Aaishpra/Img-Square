@@ -19,6 +19,62 @@ const Authenticate = () => {
       });
   }, []);
 
+  const resetForm = () => {
+    document.getElementById("signin-email").value = "";
+    document.getElementById("signin-password").value = "";
+    document.getElementById("signup-name").value = "";
+    document.getElementById("signup-email").value = "";
+    document.getElementById("signin-password").value = "";
+  };
+
+  const signinSubmit = () => {
+    let email = document.getElementById("signin-email").value,
+      password = document.getElementById("signin-password").value;
+    if (!email) {
+      addToast(`Email required`, {
+        appearance: "error",
+        autoDismiss: true,
+      });
+      return false;
+    }
+    if (!password) {
+      addToast(`Password required`, {
+        appearance: "error",
+        autoDismiss: true,
+      });
+      return false;
+    }
+  };
+
+  const signupSubmit = () => {
+    let name = document.getElementById("signup-name").value,
+      email = document.getElementById("signup-email").value,
+      password = document.getElementById("signup-password").value;
+
+    if (!name) {
+      addToast(`Name is required`, {
+        appearance: "error",
+        autoDismiss: true,
+      });
+      return false;
+    }
+
+    if (!email) {
+      addToast(`We require email to register you`, {
+        appearance: "error",
+        autoDismiss: true,
+      });
+      return false;
+    }
+    if (!password) {
+      addToast(`Password is required`, {
+        appearance: "error",
+        autoDismiss: true,
+      });
+      return false;
+    }
+  };
+
   return (
     <React.Fragment>
       {loading && <LoadingSpinner asOverlay />}
@@ -28,14 +84,18 @@ const Authenticate = () => {
             <h2>Welcome back,</h2>
             <label>
               <span>Email</span>
-              <input type="email" />
+              <input type="email" id="signin-email" />
             </label>
             <label>
               <span>Password</span>
-              <input type="password" />
+              <input type="password" id="signin-password" />
             </label>
             <p className={`${styles.forgotPasss}`}>Forgot password?</p>
-            <button type="button" className={`${styles.submit}`}>
+            <button
+              type="button"
+              className={`${styles.submit}`}
+              onClick={() => signinSubmit()}
+            >
               Sign In
             </button>
             <button type="button" className={`${styles.fbBtn}`}>
@@ -56,7 +116,10 @@ const Authenticate = () => {
               </div>
               <div
                 className={`${styles.img__btn}`}
-                onClick={() => setSigninState(!signinState)}
+                onClick={() => {
+                  setSigninState(!signinState);
+                  resetForm();
+                }}
               >
                 <span className={`${styles.m__up}`}>Sign Up</span>
                 <span className={`${styles.m__in}`}>Sign In</span>
@@ -66,17 +129,21 @@ const Authenticate = () => {
               <h2>Time to feel like home,</h2>
               <label>
                 <span>Name</span>
-                <input type="text" />
+                <input type="text" id="signup-name" />
               </label>
               <label>
                 <span>Email</span>
-                <input type="email" />
+                <input type="email" id="signup-email" />
               </label>
               <label>
                 <span>Password</span>
-                <input type="password" />
+                <input type="password" id="signup-password" />
               </label>
-              <button type="button" className={`${styles.submit}`}>
+              <button
+                type="button"
+                className={`${styles.submit}`}
+                onClick={() => signupSubmit()}
+              >
                 Sign Up
               </button>
               <button type="button" className={`${styles.fbBtn}`}>
