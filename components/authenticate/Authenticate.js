@@ -3,13 +3,13 @@ import styles from "./styles/Authenticate.module.css";
 import LoadingSpinner from "../spinner/LoadingSpinner";
 import { useToasts } from "react-toast-notifications";
 import { useRouter } from "next/router";
-import { createUser } from "../../actions/user";
-import { setCookie } from "../../helpers/auth";
+import { createUser, loginUser } from "../../actions/user";
+import { setCookie, authenticate } from "../../helpers/auth";
 import { COOKIE_NAME } from "../../appConstants";
 
 const Authenticate = () => {
   const [signinState, setSigninState] = useState(true);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const { addToast } = useToasts();
 
@@ -23,6 +23,12 @@ const Authenticate = () => {
           .querySelector(`.${styles.cont}`)
           .classList.toggle(`${styles.s__signup}`);
       });
+
+    if (authenticate(COOKIE_NAME)) {
+      router.replace("/videofeed");
+      setLoading(false);
+    }
+    setLoading(false);
   }, []);
 
   const resetForm = () => {
@@ -33,7 +39,7 @@ const Authenticate = () => {
     document.getElementById("signin-password").value = "";
   };
 
-  const signinSubmit = () => {
+  const signinSubmit = async () => {
     let email = document.getElementById("signin-email").value,
       password = document.getElementById("signin-password").value;
     if (!email) {
@@ -49,6 +55,32 @@ const Authenticate = () => {
         autoDismiss: true,
       });
       return false;
+    }
+    let response;
+    let data = { email, password };
+    setLoading(true);
+    try {
+      response = await loginUser(data);
+      setLoading(false);
+      if (response.error) {
+        addToast(`${response.error}`, {
+          appearance: "error",
+          autoDismiss: true,
+        });
+      } else {
+        setCookie(COOKIE_NAME, response.token);
+        addToast(`${response.message}`, {
+          appearance: "success",
+        });
+        router.push(`/videofeed`);
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      addToast(`${error.message}`, {
+        appearance: "error",
+        autoDismiss: true,
+      });
     }
   };
 
