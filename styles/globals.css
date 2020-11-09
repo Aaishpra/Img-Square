@@ -15,7 +15,9 @@ a {
   box-sizing: border-box;
 } */
 
-*, *::after, *::before {
+*,
+*::after,
+*::before {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -28,7 +30,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 12px;
   background-color: #ecf0f3;
   color: #a0a5a8;
@@ -87,7 +89,7 @@ a {
   letter-spacing: 0.15px;
   border: none;
   outline: none;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   background-color: #ecf0f3;
   transition: 0.25s ease;
   border-radius: 8px;
@@ -193,7 +195,8 @@ a {
   transform: scale(0.985);
   transition: 0.25s;
 }
-.switch__button:active, .switch__button:focus {
+.switch__button:active,
+.switch__button:focus {
   box-shadow: 2px 2px 6px #d1d9e6, -2px -2px 6px #f9f9f9;
   transform: scale(0.97);
   transition: 0.25s;
@@ -223,10 +226,26 @@ a {
   animation: is-gx 1.25s;
 }
 @keyframes is-gx {
-  0%, 10%, 100% {
+  0%,
+  10%,
+  100% {
     width: 400px;
- }
-  30%, 50% {
+  }
+  30%,
+  50% {
     width: 500px;
- }
+  }
+}
+
+.loading-spinner__overlay {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  z-index: 1080;
+  justify-content: center;
+  align-items: center;
 }

@@ -1,10 +1,13 @@
 import React from "react";
 import Authenitcate from "../components/authenticate/Authenticate";
+import ToastedParent from "../components/ToastedParent";
 
 const AuthenticatePage = () => {
   return (
     <div className="authenticate">
-      <Authenitcate />
+      <ToastedParent>
+        <Authenitcate />
+      </ToastedParent>
     </div>
   );
 };
