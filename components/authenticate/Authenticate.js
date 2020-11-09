@@ -2,12 +2,18 @@ import React, { useEffect, useState } from "react";
 import styles from "./styles/Authenticate.module.css";
 import LoadingSpinner from "../spinner/LoadingSpinner";
 import { useToasts } from "react-toast-notifications";
+import { useRouter } from "next/router";
+import { createUser } from "../../actions/user";
+import { setCookie } from "../../helpers/auth";
+import { COOKIE_NAME } from "../../appConstants";
 
 const Authenticate = () => {
   const [signinState, setSigninState] = useState(true);
   const [loading, setLoading] = useState(false);
 
   const { addToast } = useToasts();
+
+  const router = useRouter();
 
   useEffect(() => {
     document
@@ -46,7 +52,7 @@ const Authenticate = () => {
     }
   };
 
-  const signupSubmit = () => {
+  const signupSubmit = async () => {
     let name = document.getElementById("signup-name").value,
       email = document.getElementById("signup-email").value,
       password = document.getElementById("signup-password").value;
@@ -72,6 +78,33 @@ const Authenticate = () => {
         autoDismiss: true,
       });
       return false;
+    }
+
+    let response;
+    let data = { name, email, password };
+    setLoading(true);
+    try {
+      response = await createUser(data);
+      setLoading(false);
+      if (response.error) {
+        addToast(`${response.error}`, {
+          appearance: "error",
+          autoDismiss: true,
+        });
+      } else {
+        setCookie(COOKIE_NAME, response.token);
+        addToast(`${response.message}`, {
+          appearance: "success",
+        });
+        router.push(`/videofeed`);
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      addToast(`${error.message}`, {
+        appearance: "error",
+        autoDismiss: true,
+      });
     }
   };
 
