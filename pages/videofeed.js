@@ -65,21 +65,22 @@ const videofeed = () => {
   }, [])
 
   return (
-    <body class={styles.mainmargin}>
+    
+    <body className={styles.mainmargin}>
     <div id='main-div'>
-    <form enctype="multipart/form-data" name='videoUpload' id='video-upload' >
-      <div class='form-group'>
-        <label class={styles.custom_label}> Select file to upload: </label>
+    <form encType="multipart/form-data" name='videoUpload' id='video-upload' >
+      <div className='form-group'>
+        <label className={styles.custom_label}> Upload your Video  </label>
         <input accept="video/mp4" type="file" name="user-file" />
       </div>
 
-      <div class={styles.formgroup}>
-        <label class={styles.custom_label}> Video Details:</label>
+      <div className={styles.formgroup}>
+        <label className={styles.custom_label}> Video Details:</label>
         <textarea rows="10" cols="50" name='details'></textarea>
       </div>
 
       <div id={styles.submitid}>
-        <input type="submit" id='submit' value="Upload File" onclick='onSubmit(event)' name="submit" />
+        <input className={styles.button} type="submit" id='submit' value="Upload File" onClick='onSubmit(event)' name="submit" />
       </div>
     </form>
   </div>
