@@ -1,5 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useEffect } from "react";
 import styles from '../components/authenticate/styles/Videofeed.module.css'
+import NavTabs from "../components/authenticate/navbar";
 
 const videofeed = () => {
 
@@ -8,19 +10,19 @@ const videofeed = () => {
     function onSubmit(e) {
       e.preventDefault();
       var customMessage = document.getElementById('message');
-      if(validateForm(customMessage)) {
+      if (validateForm(customMessage)) {
         uploadVideo(customMessage);
       }
     }
 
     function validateForm(customMessage) {
       const uploadedFile = document.getElementById('video-upload').elements[0].files[0];
-      if(!uploadedFile) {
+      if (!uploadedFile) {
         customMessage.innerHTML = "Please select a video to upload";
         return false;
       }
       const fileLimit = 104857600;
-      if(uploadedFile.size > fileLimit) {
+      if (uploadedFile.size > fileLimit) {
         customMessage.innerHTML = "Maximum video size allowed: 100MB";
         return false;
       }
@@ -42,10 +44,10 @@ const videofeed = () => {
     function onComplete(event) {
       var customMessage = document.getElementById('message');
       const response = JSON.parse(event.currentTarget.response);
-      if(response.success) {
+      if (response.success) {
         document.getElementById('main-div').style.display = 'none';
         customMessage.style.color = '#9C27B0';
-        customMessage.innerHTML = 'Video Uploaded successfully!!. Please <a href='+ response.link +'>click here</a> to view the video.';
+        customMessage.innerHTML = 'Video Uploaded successfully!!. Please <a href=' + response.link + '>click here</a> to view the video.';
       } else {
         customMessage.innerHTML = response.error;
         customMessage.style.color = 'red';
@@ -65,28 +67,31 @@ const videofeed = () => {
   }, [])
 
   return (
-    
-    <body className={styles.mainmargin}>
-    <div id='main-div'>
-    <form encType="multipart/form-data" name='videoUpload' id='video-upload' >
-      <div className='form-group'>
-        <label className={styles.custom_label}> Upload your Video  </label>
-        <input accept="video/mp4" type="file" name="user-file" />
-      </div>
+    <body className={styles.background}>
+      <NavTabs />
+      <div className={styles.mainmargin}>
+        <div id='main-div'>
+          <form encType="multipart/form-data" name='videoUpload' id='video-upload' >
+            <div>
+              <label className={styles.custom_label}> Upload your Video:  </label>
+              <input accept="video/mp4" type="file" name="user-file" />
+            </div>
 
-      <div className={styles.formgroup}>
-        <label className={styles.custom_label}> Video Details:</label>
-        <textarea rows="10" cols="50" name='details'></textarea>
-      </div>
+            <div className={styles.formgroup}>
+              <label className={styles.custom_label}> Video Details:</label>
+              <textarea rows="10" cols="50" name='details'></textarea>
+            </div>
 
-      <div id={styles.submitid}>
-        <input className={styles.button} type="submit" id='submit' value="Upload File" onClick='onSubmit(event)' name="submit" />
+            <div id={styles.submitid}>
+              <input className={styles.button} type="submit" id='submit' value="Upload File" onClick={() => onSubmit()} name="submit" />
+            </div>
+          </form>
+        </div>
+        <div id={styles.message}>
+        </div>
       </div>
-    </form>
-  </div>
-  <div id={styles.message}>
-  </div>
-</body>
+    </body>
+
   );
 };
 
